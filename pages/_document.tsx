@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { Helmet } from "react-helmet";
 import { ServerStyleSheet } from "styled-components";
+// import { Helmet } from "react-helmet";
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -19,7 +19,7 @@ export default class MyDocument extends Document {
       // 'head' was occupied by 'renderPage().head', we cannot use it
       return {
         ...documentProps,
-        helmet: Helmet.renderStatic(),
+        // helmet: Helmet.renderStatic(),
         styles: (
           <>
             {documentProps.styles}
@@ -32,26 +32,28 @@ export default class MyDocument extends Document {
     }
   }
 
-  // should render on <html>
-  get helmetHtmlAttrComponents() {
-    return this.props.helmet.htmlAttributes.toComponent();
-  }
+  // // should render on <html>
+  // get helmetHtmlAttrComponents() {
+  //   return this.props.helmet.htmlAttributes.toComponent();
+  // }
 
-  // should render on <body>
-  get helmetBodyAttrComponents() {
-    return this.props.helmet.bodyAttributes.toComponent();
-  }
+  // // should render on <body>
+  // get helmetBodyAttrComponents() {
+  //   return this.props.helmet.bodyAttributes.toComponent();
+  // }
 
-  // should render on <head>
-  get helmetHeadComponents() {
-    return Object.keys(this.props.helmet)
-      .filter((el) => el !== "htmlAttributes" && el !== "bodyAttributes")
-      .map((el) => this.props.helmet[el].toComponent());
-  }
+  // // should render on <head>
+  // get helmetHeadComponents() {
+  //   return Object.keys(this.props.helmet)
+  //     .filter((el) => el !== "htmlAttributes" && el !== "bodyAttributes")
+  //     .map((el) => this.props.helmet[el].toComponent());
+  // }
 
   render() {
     return (
-      <Html {...this.helmetHtmlAttrComponents}>
+      <Html
+      // {...this.helmetHtmlAttrComponents}
+      >
         <Head>
           {/* LOGOMARK */}
           <link rel="icon" href="/favicon.ico" />
@@ -62,9 +64,11 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
           />
 
-          {this.helmetHeadComponents}
+          {/* {this.helmetHeadComponents} */}
         </Head>
-        <body {...this.helmetBodyAttrComponents}>
+        <body
+        // {...this.helmetBodyAttrComponents}
+        >
           <Main />
           <NextScript />
         </body>

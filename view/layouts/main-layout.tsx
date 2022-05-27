@@ -1,5 +1,5 @@
 import { Fragment as Page } from "react";
-import { Footer, Header } from "./partials";
+import { Header } from "./partials";
 
 export function MainLayout({ children }) {
   return (
