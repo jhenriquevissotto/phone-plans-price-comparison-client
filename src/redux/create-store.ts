@@ -3,6 +3,7 @@ import { expressReduxApi, nextReduxApi } from "~/src/resources";
 import { tdPlan, tdRegion, trPrice } from "~/src/redux/stores/database";
 import { toast } from "~/src/redux/stores/application";
 import { table } from "~/src/redux/stores/components";
+import { tableForm } from "~/src/redux/stores/forms";
 import { HYDRATE } from "next-redux-wrapper";
 
 export function createStore() {
@@ -22,6 +23,9 @@ export function createStore() {
       }),
       components: combineReducers({
         [table.name]: table.reducer,
+      }),
+      forms: combineReducers({
+        [tableForm.name]: tableForm.reducer,
       }),
     });
 

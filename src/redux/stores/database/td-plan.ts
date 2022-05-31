@@ -29,7 +29,7 @@ export const tdPlan = (() => {
 
   const api = expressReduxApi.injectEndpoints({
     endpoints: (builder) => ({
-      selectAll: builder.query<SelectAllTdPlan.Response, void>({
+      selectAllTdPlan: builder.query<SelectAllTdPlan.Response, void>({
         query: () => ({
           url: selectAllTdPlan.endpoint,
           method: selectAllTdPlan.method,
@@ -49,14 +49,14 @@ export const tdPlan = (() => {
       }));
 
       builder.addMatcher(
-        api.endpoints.selectAll.matchPending,
+        api.endpoints.selectAllTdPlan.matchPending,
         (state, { meta }) => {
           state.meta.requestId = meta.requestId;
           state.meta.requestStatus = meta.requestStatus;
         }
       );
       builder.addMatcher(
-        api.endpoints.selectAll.matchFulfilled,
+        api.endpoints.selectAllTdPlan.matchFulfilled,
         (state, { meta, payload }) => {
           state.meta.requestId = meta.requestId;
           state.meta.requestStatus = meta.requestStatus;
@@ -67,7 +67,7 @@ export const tdPlan = (() => {
         }
       );
       builder.addMatcher(
-        api.endpoints.selectAll.matchRejected,
+        api.endpoints.selectAllTdPlan.matchRejected,
         (state, { meta }) => {
           state.meta.requestId = meta.requestId;
           state.meta.requestStatus = meta.requestStatus;

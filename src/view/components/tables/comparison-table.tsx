@@ -1,13 +1,13 @@
 import { css } from "~/src/libs/css";
-import { useTranslation, useQueries } from "~/src/react/hooks";
+import { useTranslation, useQueries, useRouter } from "~/src/react/hooks";
 import { isNil } from "lodash";
 import { useSelector, useDispatch } from "~/src/react/hooks/redux";
 import { toast } from "~/src/redux/stores/application";
 import { table } from "~/src/redux/stores/components";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { useImmer } from "use-immer";
 import { createID } from "~/src/libs/create-id";
+import { tableForm } from "~/src/redux/stores/forms";
 
 module Types {
   export type Props = {
@@ -93,36 +93,12 @@ const locales = {
 
 export function ComparisonTable(props: Types.Props) {
   const { lang } = useTranslation();
+  const { router } = useRouter();
   const { dispatch } = useDispatch();
-  const { queries } = useQueries();
+  const { setQuery } = useQueries();
 
   const { dataset } = useSelector(table.selectors.getState);
-
-  const formCtrl = (() => {
-    const [state, setState] = useImmer({
-      select: {
-        from: queries?.from || "",
-        to: queries?.to || "",
-        plan: queries?.plan || "",
-      },
-      input: {
-        time: queries?.time || "",
-      },
-    });
-
-    const actions = {
-      resetFields() {
-        setState((state) => {
-          state.select.from = "";
-          state.select.to = "";
-          state.select.plan = "";
-          state.input.time = "";
-        });
-      },
-    };
-
-    return { state, setState, actions };
-  })();
+  const { fields } = useSelector(tableForm.selectors.getState);
 
   const handlers = {
     table: {
@@ -131,59 +107,53 @@ export function ComparisonTable(props: Types.Props) {
           dispatch(table.actions.deleteRow({ rowID }));
         },
         insertRow() {
-          const { from, plan, to } = formCtrl.state.select;
-          const { time } = formCtrl.state.input;
+          // alert("INSERT ROW");
+          // const { from, plan, to } = formCtrl.state.select;
+          // const { time } = formCtrl.state.input;
 
-          if (!from || !plan || !to || !time) {
+          if (
+            !fields.inputTime ||
+            !fields.selectFrom ||
+            !fields.selectPlan ||
+            !fields.selectTo
+          ) {
             dispatch(toast.actions.showErrorToast());
             return;
           }
 
-          dispatch(
-            table.actions.insertRow({
-              rowID: createID(),
-              from: Number(from),
-              to: Number(to),
-              time: Number(time),
-              plan_id: plan,
-              plan_slug_en: null,
-              plan_slug_pt: null,
-              plan_name_en: null,
-              plan_name_pt: null,
-              withPlan: null,
-              withoutPlan: null,
-            })
-          );
+          // dispatch(
+          //   table.actions.insertRow({
+          //     rowID: createID(),
+          //     from: Number(from),
+          //     to: Number(to),
+          //     time: Number(time),
+          //     plan_id: plan,
+          //     plan_slug_en: null,
+          //     plan_slug_pt: null,
+          //     plan_name_en: null,
+          //     plan_name_pt: null,
+          //     withPlan: null,
+          //     withoutPlan: null,
+          //   })
+          // );
 
-          formCtrl.actions.resetFields();
+          // formCtrl.actions.resetFields();
         },
       },
     },
-    formCtrl: {
+    tableForm: {
       onChange: {
-        select: {
-          from({ from }: { from: string }) {
-            formCtrl.setState((state) => {
-              state.select.from = from;
-            });
-          },
-          to({ to }: { to: string }) {
-            formCtrl.setState((state) => {
-              state.select.to = to;
-            });
-          },
-          plan({ plan }: { plan: string }) {
-            formCtrl.setState((state) => {
-              state.select.plan = plan;
-            });
-          },
+        selectFrom({ from }: { from: string }) {
+          router.push(setQuery.from(from || undefined).asPath);
         },
-        input: {
-          time({ time }: { time: number }) {
-            formCtrl.setState((state) => {
-              state.input.time = String(time);
-            });
-          },
+        selectTo({ to }: { to: string }) {
+          router.push(setQuery.to(to || undefined).asPath);
+        },
+        selectPlan({ plan }: { plan: string }) {
+          router.push(setQuery.plan(plan || undefined).asPath);
+        },
+        inputTime({ time }: { time: number }) {
+          router.push(setQuery.time(String(time) || undefined).asPath);
         },
       },
     },
@@ -281,9 +251,9 @@ export function ComparisonTable(props: Types.Props) {
             <select
               style={S.select}
               required={true}
-              value={formCtrl.state.select.from}
+              value={fields.selectFrom}
               onChange={(event) =>
-                handlers.formCtrl.onChange.select.from({
+                handlers.tableForm.onChange.selectFrom({
                   from: event.currentTarget.value,
                 })
               }
@@ -302,9 +272,9 @@ export function ComparisonTable(props: Types.Props) {
             <select
               style={S.select}
               required={true}
-              value={formCtrl.state.select.to}
+              value={fields.selectTo}
               onChange={(event) =>
-                handlers.formCtrl.onChange.select.to({
+                handlers.tableForm.onChange.selectTo({
                   to: event.currentTarget.value,
                 })
               }
@@ -327,9 +297,9 @@ export function ComparisonTable(props: Types.Props) {
               min={0}
               step={1}
               required={true}
-              value={formCtrl.state.input.time}
+              value={fields.inputTime}
               onChange={(event) =>
-                handlers.formCtrl.onChange.input.time({
+                handlers.tableForm.onChange.inputTime({
                   time: Number(event.currentTarget.value),
                 })
               }
@@ -342,17 +312,25 @@ export function ComparisonTable(props: Types.Props) {
             <select
               style={S.select}
               required={true}
-              value={formCtrl.state.select.plan}
+              value={fields.selectPlan}
               onChange={(event) =>
-                handlers.formCtrl.onChange.select.plan({
+                handlers.tableForm.onChange.selectPlan({
                   plan: event.currentTarget.value,
                 })
               }
             >
               <option value="" />
-              <option value="talk-more-30">Fale Mais 30</option>
-              <option value="talk-more-60">Fale Mais 60</option>
-              <option value="talk-more-120">Fale Mais 120</option>
+              <option value={{ en: "talk-more-30", br: "fale-mais-30" }[lang]}>
+                {{ en: "Talk More 30", br: "Fale Mais 30" }[lang]}
+              </option>
+              <option value={{ en: "talk-more-60", br: "fale-mais-60" }[lang]}>
+                {{ en: "Talk More 60", br: "Fale Mais 60" }[lang]}
+              </option>
+              <option
+                value={{ en: "talk-more-120", br: "fale-mais-120" }[lang]}
+              >
+                {{ en: "Talk More 120", br: "Fale Mais 120" }[lang]}
+              </option>
             </select>
           </td>
           <td style={S.col}></td>

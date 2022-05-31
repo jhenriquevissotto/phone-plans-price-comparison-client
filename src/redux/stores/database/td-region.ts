@@ -29,7 +29,7 @@ export const tdRegion = (() => {
 
   const api = expressReduxApi.injectEndpoints({
     endpoints: (builder) => ({
-      selectAll: builder.query<SelectAllTdRegion.Response, void>({
+      selectAllTdRegion: builder.query<SelectAllTdRegion.Response, void>({
         query: () => ({
           url: selectAllTdRegion.endpoint,
           method: selectAllTdRegion.method,
@@ -49,14 +49,14 @@ export const tdRegion = (() => {
       }));
 
       builder.addMatcher(
-        api.endpoints.selectAll.matchPending,
+        api.endpoints.selectAllTdRegion.matchPending,
         (state, { meta }) => {
           state.meta.requestId = meta.requestId;
           state.meta.requestStatus = meta.requestStatus;
         }
       );
       builder.addMatcher(
-        api.endpoints.selectAll.matchFulfilled,
+        api.endpoints.selectAllTdRegion.matchFulfilled,
         (state, { meta, payload }) => {
           state.meta.requestId = meta.requestId;
           state.meta.requestStatus = meta.requestStatus;
@@ -67,7 +67,7 @@ export const tdRegion = (() => {
         }
       );
       builder.addMatcher(
-        api.endpoints.selectAll.matchRejected,
+        api.endpoints.selectAllTdRegion.matchRejected,
         (state, { meta }) => {
           state.meta.requestId = meta.requestId;
           state.meta.requestStatus = meta.requestStatus;

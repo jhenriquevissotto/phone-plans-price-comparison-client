@@ -55,9 +55,9 @@ export const queries = {
   },
 
   set(router: NextRouter, lang: AvailableLocales) {
-    const url = router.asPath;
+    const routerAsPath = router.asPath;
 
-    const from = (value: string) => {
+    const from = (value: string, _asPath?: string) => {
       const query = {
         en: {
           from: value,
@@ -69,11 +69,11 @@ export const queries = {
         },
       }[lang];
 
-      const asPath = qs.stringifyUrl({ url, query });
+      const asPath = qs.stringifyUrl({ url: _asPath || routerAsPath, query });
       return { asPath };
     };
 
-    const to = (value: string) => {
+    const to = (value: string, _asPath?: string) => {
       const query = {
         en: {
           to: value,
@@ -85,11 +85,11 @@ export const queries = {
         },
       }[lang];
 
-      const asPath = qs.stringifyUrl({ url, query });
+      const asPath = qs.stringifyUrl({ url: _asPath || routerAsPath, query });
       return { asPath };
     };
 
-    const time = (value: string) => {
+    const time = (value: string, _asPath?: string) => {
       const query = {
         en: {
           time: value,
@@ -101,11 +101,11 @@ export const queries = {
         },
       }[lang];
 
-      const asPath = qs.stringifyUrl({ url, query });
+      const asPath = qs.stringifyUrl({ url: _asPath || routerAsPath, query });
       return { asPath };
     };
 
-    const plan = (value: string) => {
+    const plan = (value: string, _asPath?: string) => {
       const query = {
         en: {
           plan: value,
@@ -117,7 +117,7 @@ export const queries = {
         },
       }[lang];
 
-      const asPath = qs.stringifyUrl({ url, query });
+      const asPath = qs.stringifyUrl({ url: _asPath || routerAsPath, query });
       return { asPath };
     };
 

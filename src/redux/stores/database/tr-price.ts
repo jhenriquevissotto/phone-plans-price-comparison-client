@@ -29,7 +29,7 @@ export const trPrice = (() => {
 
   const api = expressReduxApi.injectEndpoints({
     endpoints: (builder) => ({
-      selectAll: builder.query<SelectAllTrPrice.Response, void>({
+      selectAllTrPrice: builder.query<SelectAllTrPrice.Response, void>({
         query: () => ({
           url: selectAllTrPrice.endpoint,
           method: selectAllTrPrice.method,
@@ -49,14 +49,14 @@ export const trPrice = (() => {
       }));
 
       builder.addMatcher(
-        api.endpoints.selectAll.matchPending,
+        api.endpoints.selectAllTrPrice.matchPending,
         (state, { meta }) => {
           state.meta.requestId = meta.requestId;
           state.meta.requestStatus = meta.requestStatus;
         }
       );
       builder.addMatcher(
-        api.endpoints.selectAll.matchFulfilled,
+        api.endpoints.selectAllTrPrice.matchFulfilled,
         (state, { meta, payload }) => {
           state.meta.requestId = meta.requestId;
           state.meta.requestStatus = meta.requestStatus;
@@ -67,7 +67,7 @@ export const trPrice = (() => {
         }
       );
       builder.addMatcher(
-        api.endpoints.selectAll.matchRejected,
+        api.endpoints.selectAllTrPrice.matchRejected,
         (state, { meta }) => {
           state.meta.requestId = meta.requestId;
           state.meta.requestStatus = meta.requestStatus;

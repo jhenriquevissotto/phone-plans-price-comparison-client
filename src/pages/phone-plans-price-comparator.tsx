@@ -16,9 +16,9 @@ const locales = {
 export default function PhonePlansPriceComparatorPage() {
   const { lang } = useTranslation();
 
-  tdPlan.api.endpoints.selectAll.useQuery();
-  tdRegion.api.endpoints.selectAll.useQuery();
-  trPrice.api.endpoints.selectAll.useQuery();
+  tdPlan.api.endpoints.selectAllTdPlan.useQuery();
+  tdRegion.api.endpoints.selectAllTdRegion.useQuery();
+  trPrice.api.endpoints.selectAllTrPrice.useQuery();
 
   return (
     <MyDocument>
