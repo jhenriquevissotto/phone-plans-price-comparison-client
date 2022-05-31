@@ -13,6 +13,7 @@ export module Toast {
 }
 
 export const toast = (() => {
+  const group = "application";
   const name = "toast";
 
   const initialState: Toast.State = {
@@ -26,7 +27,7 @@ export const toast = (() => {
       // @ts-ignore
       builder.addCase(HYDRATE, (state, { payload }) => ({
         ...state,
-        ...payload["application"][name],
+        ...payload[group][name],
       }));
     },
     reducers: {

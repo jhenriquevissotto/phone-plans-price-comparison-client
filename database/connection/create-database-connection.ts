@@ -1,5 +1,5 @@
 import knex from "knex";
-import { env } from "../../../environment";
+import { env } from "../../environment";
 
 function createDatabaseConnection() {
   const db = knex({

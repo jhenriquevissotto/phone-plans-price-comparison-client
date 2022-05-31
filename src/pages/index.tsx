@@ -1,6 +1,7 @@
 import { Fragment as MyDocument } from "react";
 import { MainLayout } from "~/src/view/layouts/main-layout";
 import { PhonePlansPriceComparatorScreen } from "~/src/view/screens/phone-plans-price-comparator-screen";
+import { tdPlan, tdRegion, trPrice } from "~/src/redux/stores/database";
 import { useTranslation } from "~/src/react/hooks";
 import NextHead from "next/head";
 // import { routes } from "~/src/router";
@@ -22,6 +23,10 @@ export default function IndexPage() {
   //     router.push(routes.phonePlansPriceComparator().url[lang]);
   //   },
   // };
+
+  tdPlan.api.endpoints.selectAll.useQuery();
+  tdRegion.api.endpoints.selectAll.useQuery();
+  trPrice.api.endpoints.selectAll.useQuery();
 
   return (
     <MyDocument>

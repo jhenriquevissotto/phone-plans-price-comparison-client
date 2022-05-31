@@ -10,7 +10,7 @@ export const expressReduxApi = createApi({
     if (action.type === HYDRATE) return action.payload[reducerPath];
   },
   endpoints: (builder) => ({
-    test: builder.query<Test.Res, void>({
+    test: builder.query<Test.Response, void>({
       query: () => test.endpoint,
     }),
   }),

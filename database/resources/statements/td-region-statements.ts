@@ -1,4 +1,4 @@
-import { TdRegionModel } from "../../../../backend/database/model";
+import { TdRegionModel } from "../../model";
 
 export module TdRegionStatements {
   export module SelectAll {

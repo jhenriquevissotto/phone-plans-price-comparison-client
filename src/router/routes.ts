@@ -17,7 +17,7 @@ export const routes = {
     };
 
     // @ts-ignore
-    const queries: Routes.PhonePlansPriceComparator.Queries;
+    const queries: Routes.PhonePlansPriceComparator.Queries = {};
 
     return { url, queries };
   },

@@ -34,6 +34,7 @@ export module Table {
 }
 
 export const table = (() => {
+  const group = "components";
   const name = "table";
 
   const initialState: Table.State = {
@@ -100,7 +101,7 @@ export const table = (() => {
       // @ts-ignore
       builder.addCase(HYDRATE, (state, { payload }) => ({
         ...state,
-        ...payload["components"][name],
+        ...payload[group][name],
       }));
     },
     reducers: {

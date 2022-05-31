@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextTranslate = require("next-translate");
-const { nextRoutes } = require("./src/routes/next-routes");
+const { routes } = require("./src/router/routes");
 
 const nextConfig = nextTranslate({
   reactStrictMode: true,
@@ -11,8 +11,8 @@ const nextConfig = nextTranslate({
 
   rewrites: async () => [
     {
-      source: nextRoutes.phonePlansPriceComparator.url.br,
-      destination: nextRoutes.phonePlansPriceComparator.url.en,
+      source: routes.phonePlansPriceComparator().url.br,
+      destination: routes.phonePlansPriceComparator().url.en,
     },
   ],
 });

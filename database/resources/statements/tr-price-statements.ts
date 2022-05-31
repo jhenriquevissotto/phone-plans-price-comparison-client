@@ -1,4 +1,4 @@
-import { TrPriceModel } from "../../../../backend/database/model";
+import { TrPriceModel } from "../../model";
 
 export module TrPriceStatements {
   export module SelectAll {

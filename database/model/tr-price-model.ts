@@ -1,4 +1,4 @@
-import { TdRegionModel } from "../../../backend/database/model";
+import { TdRegionModel } from ".";
 
 export type TrPriceModel = {
   fk_from: Pick<TdRegionModel, "id_code">;

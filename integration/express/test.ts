@@ -1,5 +1,5 @@
 export module Test {
-  export type Res = {
+  export type Response = {
     test: boolean;
   };
 }

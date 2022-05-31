@@ -4,7 +4,7 @@ import { axiosResolver } from "~/src/libs/axios-resolver";
 
 export const nextAxiosEndpoints = {
   test: () =>
-    axiosResolver<Test.Res>(
+    axiosResolver<Test.Response>(
       nextAxiosApi({ method: test.method, url: test.endpoint })
     ),
 };

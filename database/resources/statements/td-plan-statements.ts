@@ -1,4 +1,4 @@
-import { TdPlanModel } from "../../../../backend/database/model";
+import { TdPlanModel } from "../../model";
 
 export module TdPlanStatements {
   export module SelectAll {
