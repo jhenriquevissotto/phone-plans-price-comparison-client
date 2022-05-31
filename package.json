@@ -4,9 +4,9 @@
     "_dev": "next",
     "_build": "next build",
     "_start": "next start",
-    "dev": "nodemon .",
+    "dev": "ts-node .",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production nodemon .",
+    "start": "cross-env NODE_ENV=production ts-node .",
     "type-check": "tsc"
   },
   "dependencies": {
@@ -39,10 +39,13 @@
     "redux-devtools-extension": "^2.13.9",
     "shortid": "^2.2.16",
     "styled-components": "^5.2.3",
+    "ts-node": "^10.8.0",
     "use-immer": "^0.7.0"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "11.9.2",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
     "@types/lodash": "^4.14.182",
     "@types/node": "^12.12.21",
     "@types/react": "^17.0.2",
@@ -51,6 +54,7 @@
     "@types/shortid": "^0.0.29",
     "@types/styled-components": "5.1.9",
     "@types/uuid": "^8.3.4",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^4.5.5"
   }
 }

@@ -1,5 +1,5 @@
-const knex = require("knex");
-const { env } = require("../../environment/env");
+import knex from "knex";
+import { env } from "../../environment/env";
 
 const db = knex({
   client: "mysql",
@@ -12,4 +12,4 @@ const db = knex({
   },
 });
 
-module.exports = { db };
+export { db };
