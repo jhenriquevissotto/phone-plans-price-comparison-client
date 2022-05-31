@@ -4,8 +4,8 @@
     "_dev": "next",
     "_build": "next build",
     "_start": "next start",
-    "dev:server": "ts-node-dev .",
-    "dev:client": "ts-node .",
+    "dev:express": "ts-node-dev .",
+    "dev:next": "ts-node .",
     "build": "next build",
     "start": "cross-env NODE_ENV=production ts-node .",
     "type-check": "tsc"
@@ -30,6 +30,7 @@
     "next": "^12.1.6",
     "next-redux-wrapper": "^7.0.5",
     "next-translate": "^1.4.0",
+    "query-string": "^7.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",

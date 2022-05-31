@@ -1,7 +1,7 @@
 import { Fragment as IndexPage } from "react";
 import { ComparisonTableSection } from "./sections/comparison-section";
 
-export function HomeScreen() {
+export function PhonePlansPriceComparatorScreen() {
   return (
     <IndexPage>
       <ComparisonTableSection />

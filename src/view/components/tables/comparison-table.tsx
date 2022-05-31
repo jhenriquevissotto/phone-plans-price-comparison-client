@@ -1,5 +1,5 @@
 import { css } from "~/src/libs/css";
-import { useTranslation } from "~/src/react/hooks";
+import { useTranslation, useQueries } from "~/src/react/hooks";
 import { isNil } from "lodash";
 import { useSelector, useDispatch } from "~/src/react/hooks/redux";
 import { toast } from "~/src/redux/stores/application";
@@ -94,18 +94,19 @@ const locales = {
 export function ComparisonTable(props: Types.Props) {
   const { lang } = useTranslation();
   const { dispatch } = useDispatch();
+  const { queries } = useQueries();
 
   const { dataset } = useSelector(table.selectors.getState);
 
   const formCtrl = (() => {
     const [state, setState] = useImmer({
       select: {
-        from: "",
-        to: "",
-        plan: "",
+        from: queries?.from || "",
+        to: queries?.to || "",
+        plan: queries?.plan || "",
       },
       input: {
-        time: "",
+        time: queries?.time || "",
       },
     });
 

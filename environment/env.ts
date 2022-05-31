@@ -11,7 +11,8 @@ const env = {
   DB_PASS: process.env.DB_PASS,
 
   // API
-  API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  NEXT_API_BASE_URL: process.env.NEXT_PUBLIC_NEXT_API_BASE_URL,
+  EXPRESS_API_BASE_URL: process.env.NEXT_PUBLIC_EXPRESS_API_BASE_URL,
 };
 
 export { env };

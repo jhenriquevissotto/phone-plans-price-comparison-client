@@ -2,6 +2,7 @@ import { css } from "~/src/libs/css";
 import { useSelector } from "~/src/react/hooks/redux";
 import { ErrorToast } from "~/src/view/components/toasts/error-toast";
 import { If } from "react-if";
+import { toast } from "~/src/redux/stores/application";
 
 module Types {
   export type Props = {
@@ -19,7 +20,7 @@ const S = {
 };
 
 export function Toast(props: Types.Props) {
-  const { showErrorToast } = useSelector((state) => state.application.toast);
+  const { showErrorToast } = useSelector(toast.selectors.getState);
 
   return (
     <div style={{ ...S.toast, ...props?.style }}>

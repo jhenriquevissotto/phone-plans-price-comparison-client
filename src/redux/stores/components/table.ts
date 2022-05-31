@@ -100,7 +100,7 @@ export const table = (() => {
       // @ts-ignore
       builder.addCase(HYDRATE, (state, { payload }) => ({
         ...state,
-        ...payload,
+        ...payload["components"][name],
       }));
     },
     reducers: {

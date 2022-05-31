@@ -26,7 +26,7 @@ export const toast = (() => {
       // @ts-ignore
       builder.addCase(HYDRATE, (state, { payload }) => ({
         ...state,
-        ...payload,
+        ...payload["application"][name],
       }));
     },
     reducers: {

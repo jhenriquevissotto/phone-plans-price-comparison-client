@@ -1,9 +1,8 @@
 import { Fragment as MyDocument } from "react";
 import { MainLayout } from "~/src/view/layouts/main-layout";
 import { PhonePlansPriceComparatorScreen } from "~/src/view/screens/phone-plans-price-comparator-screen";
-import { useRouter, useTranslation } from "~/src/react/hooks";
+import { useTranslation } from "~/src/react/hooks";
 import NextHead from "next/head";
-// import { routes } from "~/src/router";
 // import { Helmet } from "react-helmet"
 
 const locales = {
@@ -13,15 +12,8 @@ const locales = {
   },
 };
 
-export default function IndexPage() {
+export default function PhonePlansPriceComparatorPage() {
   const { lang } = useTranslation();
-  const { router } = useRouter();
-
-  // const handlers = {
-  //   onClick() {
-  //     router.push(routes.phonePlansPriceComparator().url[lang]);
-  //   },
-  // };
 
   return (
     <MyDocument>
@@ -30,7 +22,6 @@ export default function IndexPage() {
         <title>{locales.title[lang]}</title>
       </NextHead>
       <MainLayout>
-        {/* <button onClick={handlers.onClick}>GO TO COMPARISON PAGE</button> */}
         <PhonePlansPriceComparatorScreen />
       </MainLayout>
     </MyDocument>

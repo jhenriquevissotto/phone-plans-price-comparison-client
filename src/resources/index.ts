@@ -1,2 +1,2 @@
-export * from "./next";
+export * from "./axios";
 export * from "./redux";
