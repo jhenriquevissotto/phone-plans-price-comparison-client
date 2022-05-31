@@ -3,8 +3,8 @@ import { Queries } from "~/src/router";
 export module Routes {
   export module PhonePlansPriceComparator {
     export type Queries = {
-      en: Pick<Queries.Keys.EN, "from" | "to" | "time" | "plan">;
-      br: Pick<Queries.Keys.BR, "origem" | "destino" | "tempo" | "plano">;
+      en: Pick<Queries.EN, "from" | "to" | "time" | "plan">;
+      br: Pick<Queries.BR, "origem" | "destino" | "tempo" | "plano">;
     };
   }
 }

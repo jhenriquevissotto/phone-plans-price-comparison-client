@@ -5,6 +5,7 @@ export function useQueries() {
   const { lang } = useTranslation();
   const { router } = useRouter();
   return {
-    queries: queries(router, lang),
+    queries: queries.get(router, lang),
+    setQuery: queries.set(router, lang),
   };
 }

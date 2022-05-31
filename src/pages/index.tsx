@@ -1,7 +1,7 @@
 import { Fragment as MyDocument } from "react";
 import { MainLayout } from "~/src/view/layouts/main-layout";
 import { PhonePlansPriceComparatorScreen } from "~/src/view/screens/phone-plans-price-comparator-screen";
-import { useRouter, useTranslation } from "~/src/react/hooks";
+import { useTranslation } from "~/src/react/hooks";
 import NextHead from "next/head";
 // import { routes } from "~/src/router";
 // import { Helmet } from "react-helmet"
@@ -15,7 +15,7 @@ const locales = {
 
 export default function IndexPage() {
   const { lang } = useTranslation();
-  const { router } = useRouter();
+  // const { router } = useRouter();
 
   // const handlers = {
   //   onClick() {
