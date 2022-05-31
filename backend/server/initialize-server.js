@@ -7,13 +7,14 @@ const { nextRouter } = require("../../backend/router/next-router");
 const { expressRouter } = require("../../backend/router/express-router");
 
 const cors = require("cors");
-const bodyParser = require("body-parser");
+const { static, json } = require("express");
 
 function initializeServer() {
   nextServer.prepare().then(() => {
     // config
     expressServer.use(cors());
-    expressServer.use(bodyParser.json());
+    expressServer.use(json());
+    expressServer.use(static("public"));
     expressServer.use("/express/api", expressRouter);
 
     // next
