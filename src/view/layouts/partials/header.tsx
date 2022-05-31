@@ -20,7 +20,7 @@ const S = {
 const locales = {
   markName: {
     en: "PHONE PLANS PRICE COMPARATOR",
-    br: "COMPARADOR DE PREÇOS DE PLANOS DE TELEFONIA",
+    br: "COMPARADOR DE PREÇOS DE PLANOS DE TELEFONIA ",
   },
 };
 

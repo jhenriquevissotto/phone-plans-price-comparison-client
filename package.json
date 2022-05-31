@@ -4,7 +4,8 @@
     "_dev": "next",
     "_build": "next build",
     "_start": "next start",
-    "dev": "ts-node .",
+    "dev:server": "ts-node-dev .",
+    "dev:client": "ts-node .",
     "build": "next build",
     "start": "cross-env NODE_ENV=production ts-node .",
     "type-check": "tsc"

@@ -1,4 +1,4 @@
-const { env } = require("../environment/env");
+import { env } from "../environment/env";
 
 const nodeEnv = {
   production: ["production", "prod"].includes(env.NODE_ENV),
@@ -7,4 +7,4 @@ const nodeEnv = {
   dev: ["development", "dev"].includes(env.NODE_ENV),
 };
 
-module.exports = { nodeEnv };
+export { nodeEnv };
