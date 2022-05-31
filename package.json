@@ -1,9 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next",
+    "_dev": "next",
+    "_build": "next build",
+    "_start": "next start",
+    "dev": "nodemon .",
     "build": "next build",
-    "start": "next start",
+    "start": "cross-env NODE_ENV=production nodemon .",
     "type-check": "tsc"
   },
   "dependencies": {
@@ -14,17 +17,29 @@
     "@reduxjs/toolkit": "1.8.2",
     "@types/react-redux": "7.1.24",
     "axios": "^0.27.2",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.1",
+    "easy-peasy": "^5.0.4",
+    "express": "^4.18.1",
+    "knex": "^2.1.0",
     "lodash": "^4.17.21",
-    "next": "latest",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "next": "^12.1.6",
     "next-redux-wrapper": "^7.0.5",
     "next-translate": "^1.4.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
     "react-icons": "^4.3.1",
+    "react-if": "^4.1.4",
     "react-redux": "^8.0.2",
+    "react-use": "^17.4.0",
     "redux-devtools-extension": "^2.13.9",
-    "styled-components": "^5.2.3"
+    "shortid": "^2.2.16",
+    "styled-components": "^5.2.3",
+    "use-immer": "^0.7.0"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "11.9.2",
@@ -33,7 +48,9 @@
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
     "@types/react-helmet": "^6.1.5",
+    "@types/shortid": "^0.0.29",
     "@types/styled-components": "5.1.9",
+    "@types/uuid": "^8.3.4",
     "typescript": "^4.5.5"
   }
 }
