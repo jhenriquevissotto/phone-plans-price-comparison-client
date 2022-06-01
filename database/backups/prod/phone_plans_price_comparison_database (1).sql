@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 31/05/2022 22:18:45
+ Date: 31/05/2022 22:24:31
 */
 
 SET NAMES utf8mb4;
@@ -30,16 +30,15 @@ CREATE TABLE `td_plan`  (
   `name_pt` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `freeMinutes` int NULL DEFAULT NULL,
   `premium` decimal(10, 2) NULL DEFAULT NULL,
-  `subscriptionFee` decimal(10, 2) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of td_plan
 -- ----------------------------
-INSERT INTO `td_plan` VALUES (3, 'talk-more-120', 'talk-more-120', 'fale-mais-120', 'Talk More 120', 'Fale Mais 120', 120, 0.10, 152.00);
-INSERT INTO `td_plan` VALUES (1, 'talk-more-30', 'talk-more-30', 'fale-mais-30', 'Talk More 30', 'Fale Mais 30', 30, 0.10, 0.00);
-INSERT INTO `td_plan` VALUES (2, 'talk-more-60', 'talk-more-60', 'fale-mais-60', 'Talk More 60', 'Fale Mais 60', 60, 0.10, 34.00);
+INSERT INTO `td_plan` VALUES (3, 'talk-more-120', 'talk-more-120', 'fale-mais-120', 'Talk More 120', 'Fale Mais 120', 120, 0.10);
+INSERT INTO `td_plan` VALUES (1, 'talk-more-30', 'talk-more-30', 'fale-mais-30', 'Talk More 30', 'Fale Mais 30', 30, 0.10);
+INSERT INTO `td_plan` VALUES (2, 'talk-more-60', 'talk-more-60', 'fale-mais-60', 'Talk More 60', 'Fale Mais 60', 60, 0.10);
 
 -- ----------------------------
 -- Table structure for td_region
