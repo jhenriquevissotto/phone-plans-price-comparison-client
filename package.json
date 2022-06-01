@@ -1,9 +1,6 @@
 {
   "private": true,
   "scripts": {
-    "_dev": "next",
-    "_build": "next build",
-    "_start": "next start",
     "dev:express": "ts-node-dev .",
     "dev:next": "ts-node .",
     "build": "next build",
