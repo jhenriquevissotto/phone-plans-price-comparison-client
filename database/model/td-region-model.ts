@@ -1,4 +1,4 @@
 export type TdRegionModel = {
-  id_code: Number;
-  area: String;
+  id_code: number;
+  area: string;
 };

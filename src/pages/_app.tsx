@@ -12,6 +12,8 @@ function MyApp({ Component: Page, pageProps }) {
   const { router } = useRouter();
   const { asPath } = router;
 
+  // const tdPlanRowById = useSelector(tdPlan.selectors.getTdPlanRowBySlug(queries.plan));
+
   useEffect(() => {
     if ([routes.phonePlansPriceComparator().url.br].includes(asPath)) {
       setLanguage("br");
@@ -20,11 +22,20 @@ function MyApp({ Component: Page, pageProps }) {
 
   useUpdateEffect(() => {
     let _asPath = `${router.asPath}`;
+    // const planSlug = { en: tdPlanRowById?.slug_en, pt: tdPlanRowById?.slug_pt }[lang];
 
-    if (queries.from) _asPath = setQuery.from(queries.from, _asPath).asPath;
-    if (queries.plan) _asPath = setQuery.plan(queries.plan, _asPath).asPath;
-    if (queries.time) _asPath = setQuery.time(queries.time, _asPath).asPath;
-    if (queries.to) _asPath = setQuery.to(queries.to, _asPath).asPath;
+    if (queries.from) {
+      _asPath = setQuery.from(queries.from, _asPath).asPath;
+    }
+    if (queries.plan) {
+      _asPath = setQuery.plan(queries.plan, _asPath).asPath;
+    }
+    if (queries.time) {
+      _asPath = setQuery.time(queries.time, _asPath).asPath;
+    }
+    if (queries.to) {
+      _asPath = setQuery.to(queries.to, _asPath).asPath;
+    }
 
     if (_asPath !== router.asPath) router.push(_asPath);
   }, [lang]);

@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 30/05/2022 22:39:30
+ Date: 31/05/2022 21:26:52
 */
 
 SET NAMES utf8mb4;
@@ -22,6 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `td_plan`;
 CREATE TABLE `td_plan`  (
+  `sort` int NULL DEFAULT NULL,
   `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `slug_en` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `slug_pt` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -36,9 +37,9 @@ CREATE TABLE `td_plan`  (
 -- ----------------------------
 -- Records of td_plan
 -- ----------------------------
-INSERT INTO `td_plan` VALUES ('talk-more-120', 'talk-more-120', 'fale-mais-120', 'Talk More 120', 'Fale Mais 120', 120, 0.10, 152.00);
-INSERT INTO `td_plan` VALUES ('talk-more-30', 'talk-more-30', 'fale-mais-30', 'Talk More 30', 'Fale Mais 30', 30, 0.10, 0.00);
-INSERT INTO `td_plan` VALUES ('talk-more-60', 'talk-more-60', 'fale-mais-60', 'Talk More 60', 'Fale Mais 60', 60, 0.10, 34.00);
+INSERT INTO `td_plan` VALUES (3, 'talk-more-120', 'talk-more-120', 'fale-mais-120', 'Talk More 120', 'Fale Mais 120', 120, 0.10, 152.00);
+INSERT INTO `td_plan` VALUES (1, 'talk-more-30', 'talk-more-30', 'fale-mais-30', 'Talk More 30', 'Fale Mais 30', 30, 0.10, 0.00);
+INSERT INTO `td_plan` VALUES (2, 'talk-more-60', 'talk-more-60', 'fale-mais-60', 'Talk More 60', 'Fale Mais 60', 60, 0.10, 34.00);
 
 -- ----------------------------
 -- Table structure for td_region
@@ -54,7 +55,7 @@ CREATE TABLE `td_region`  (
 -- Records of td_region
 -- ----------------------------
 INSERT INTO `td_region` VALUES (11, 'São Paulo');
-INSERT INTO `td_region` VALUES (16, 'Ribeirão Preto e Região\r\n');
+INSERT INTO `td_region` VALUES (16, 'Ribeirão Preto e Região');
 INSERT INTO `td_region` VALUES (17, 'São José do Rio Preto');
 INSERT INTO `td_region` VALUES (18, 'Outras Regiões');
 

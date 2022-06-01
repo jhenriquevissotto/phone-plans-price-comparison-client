@@ -8,6 +8,9 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { createID } from "~/src/libs/create-id";
 import { tableForm } from "~/src/redux/stores/forms";
+import { tdPlan, trPrice, tdRegion } from "~/src/redux/stores/database";
+import { useImmer } from "use-immer";
+import { useEffect, useMemo } from "react";
 
 module Types {
   export type Props = {
@@ -99,6 +102,49 @@ export function ComparisonTable(props: Types.Props) {
 
   const { dataset } = useSelector(table.selectors.getState);
   const { fields } = useSelector(tableForm.selectors.getState);
+  const tdRegionData = useSelector(tdRegion.selectors.getState)?.data;
+  const tdPlanData = useSelector(tdPlan.selectors.getState)?.data;
+
+  const trPriceRowByFKs = useSelector(
+    trPrice.selectors.getTrPriceRowByFKs(
+      Number(fields.selectFrom),
+      Number(fields.selectTo)
+    )
+  );
+
+  const [state, setState] = useImmer({
+    tableForm: {
+      from: fields.selectFrom,
+    },
+  });
+
+  const tdPlanRowById = useSelector(
+    tdPlan.selectors.getTdPlanRowBySlug(state.tableForm.from)
+  );
+
+  // const withPlan = useMemo(() => {
+  //   return "";
+  // });
+
+  const localeString = useMemo(() => {
+    return {
+      en: "en-US",
+      br: "pt-BR",
+    }[lang];
+  }, [lang]);
+
+  const withoutPlan = useMemo(() => {
+    const time = Number(fields.inputTime);
+    const feePerMin = Number(trPriceRowByFKs?.feePerMin);
+    const withoutPlan = time * feePerMin;
+
+    if (isNaN(withoutPlan)) return "";
+
+    return `R$${withoutPlan.toLocaleString(localeString, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+  }, [fields.inputTime, trPriceRowByFKs?.feePerMin, localeString]);
 
   const handlers = {
     table: {
@@ -150,7 +196,9 @@ export function ComparisonTable(props: Types.Props) {
           router.push(setQuery.to(to || undefined).asPath);
         },
         selectPlan({ plan }: { plan: string }) {
-          router.push(setQuery.plan(plan || undefined).asPath);
+          setState((state) => {
+            state.tableForm.from = plan;
+          });
         },
         inputTime({ time }: { time: number }) {
           router.push(setQuery.time(String(time) || undefined).asPath);
@@ -158,6 +206,20 @@ export function ComparisonTable(props: Types.Props) {
       },
     },
   };
+
+  useEffect(() => {
+    if (state.tableForm.from == "") {
+      router.push(setQuery.plan(undefined).asPath);
+      return;
+    }
+
+    const planSlug = {
+      en: tdPlanRowById?.slug_en,
+      br: tdPlanRowById?.slug_pt,
+    }[lang];
+
+    router.push(setQuery.plan(planSlug || state.tableForm.from).asPath);
+  }, [tdPlanRowById]);
 
   return (
     <table style={{ ...S.table, ...props.style }}>
@@ -195,11 +257,17 @@ export function ComparisonTable(props: Types.Props) {
 
           const withPlan = isNil(item.withPlan)
             ? ""
-            : `R$${item.withPlan?.toFixed(2)}`;
+            : `R$${item.withPlan?.toLocaleString(localeString, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}`;
 
           const withoutPlan = isNil(item.withoutPlan)
             ? ""
-            : `R$${item.withoutPlan?.toFixed(2)}`;
+            : `R$${item.withoutPlan?.toLocaleString(localeString, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}`;
 
           return (
             <tr key={item.rowID}>
@@ -259,10 +327,11 @@ export function ComparisonTable(props: Types.Props) {
               }
             >
               <option value="" />
-              <option value="11">{11}</option>
-              <option value="16">{16}</option>
-              <option value="17">{17}</option>
-              <option value="18">{18}</option>
+              {tdRegionData?.map((f) => (
+                <option key={f.id_code} value={f.id_code}>
+                  {f.id_code}
+                </option>
+              ))}
             </select>
           </td>
           <td style={S.col}>
@@ -280,10 +349,11 @@ export function ComparisonTable(props: Types.Props) {
               }
             >
               <option value="" />
-              <option value="11">{11}</option>
-              <option value="16">{16}</option>
-              <option value="17">{17}</option>
-              <option value="18">{18}</option>
+              {tdRegionData?.map((f) => (
+                <option key={f.id_code} value={f.id_code}>
+                  {f.id_code}
+                </option>
+              ))}
             </select>
           </td>
           <td style={S.col}>
@@ -320,21 +390,17 @@ export function ComparisonTable(props: Types.Props) {
               }
             >
               <option value="" />
-              <option value={{ en: "talk-more-30", br: "fale-mais-30" }[lang]}>
-                {{ en: "Talk More 30", br: "Fale Mais 30" }[lang]}
-              </option>
-              <option value={{ en: "talk-more-60", br: "fale-mais-60" }[lang]}>
-                {{ en: "Talk More 60", br: "Fale Mais 60" }[lang]}
-              </option>
-              <option
-                value={{ en: "talk-more-120", br: "fale-mais-120" }[lang]}
-              >
-                {{ en: "Talk More 120", br: "Fale Mais 120" }[lang]}
-              </option>
+              {tdPlanData?.map((f) => (
+                <option key={f.id} value={f.id}>
+                  {{ en: f.name_en, br: f.name_pt }[lang]}
+                </option>
+              ))}
             </select>
           </td>
           <td style={S.col}></td>
-          <td style={S.col}></td>
+          <td style={S.col}>
+            <p style={S.text}>{withoutPlan}</p>
+          </td>
         </tr>
       </tbody>
     </table>

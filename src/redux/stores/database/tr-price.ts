@@ -84,6 +84,17 @@ export const trPrice = (() => {
         return localState;
       }
     ),
+    getTrPriceRowByFKs: (fk_from: number, fk_to: number) =>
+      createDraftSafeSelector(
+        [(storeState: Store.State) => storeState.database.trPrice],
+        (localState) => {
+          return localState?.data?.find(
+            (f) =>
+              (f?.fk_from as unknown as number) == fk_from &&
+              (f?.fk_to as unknown as number) == fk_to
+          );
+        }
+      ),
   };
 
   function initEffects() {}

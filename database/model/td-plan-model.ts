@@ -1,10 +1,10 @@
 export type TdPlanModel = {
-  id: String;
-  slug_en: String;
-  slug_pt: String;
-  name_en: String;
-  name_pt: String;
-  freeMinutes: Number;
-  premium: Number;
-  subscriptionFee: Number;
+  id: string;
+  slug_en: string;
+  slug_pt: string;
+  name_en: string;
+  name_pt: string;
+  freeMinutes: number;
+  premium: number;
+  subscriptionFee: number;
 };

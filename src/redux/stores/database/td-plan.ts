@@ -79,11 +79,20 @@ export const tdPlan = (() => {
 
   const selectors = {
     getState: createDraftSafeSelector(
-      [(storeState: Store.State) => storeState.database.trPrice],
+      [(storeState: Store.State) => storeState.database.tdPlan],
       (localState) => {
         return localState;
       }
     ),
+    getTdPlanRowBySlug: (slug: string) =>
+      createDraftSafeSelector(
+        [(storeState: Store.State) => storeState.database.tdPlan],
+        (localState) => {
+          return localState?.data?.find(
+            (f) => f?.slug_en == slug || f?.slug_pt == slug
+          );
+        }
+      ),
   };
 
   function initEffects() {}

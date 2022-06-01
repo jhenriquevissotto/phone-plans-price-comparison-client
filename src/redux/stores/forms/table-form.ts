@@ -1,10 +1,11 @@
-import { useDispatch } from "~/src/react/hooks/redux";
+import { useDispatch, useSelector } from "~/src/react/hooks/redux";
 import { Store } from "~/src/redux/store";
 import { createSlice, createDraftSafeSelector } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 import { useEffect } from "react";
 import { useQueries } from "~/src/react/hooks";
 import { isInt, isSlug } from "~/src/libs/validator";
+import { tdPlan } from "~/src/redux/stores/database";
 
 export module TableForm {
   export module Constants {
@@ -72,6 +73,10 @@ export const tableForm = (() => {
     const { dispatch } = useDispatch();
     const { queries } = useQueries();
 
+    const tdPlanRowById = useSelector(
+      tdPlan.selectors.getTdPlanRowBySlug(queries.plan)
+    );
+
     useEffect(() => {
       if (queries.from && isInt(queries.from)) {
         dispatch(tableForm.actions.setFields({ selectFrom: queries.from }));
@@ -83,7 +88,11 @@ export const tableForm = (() => {
 
     useEffect(() => {
       if (queries.plan && isSlug(queries.plan)) {
-        dispatch(tableForm.actions.setFields({ selectPlan: queries.plan }));
+        dispatch(
+          tableForm.actions.setFields({
+            selectPlan: tdPlanRowById?.id || queries.plan,
+          })
+        );
       }
       if (!queries.plan) {
         dispatch(tableForm.actions.setFields({ selectPlan: "" }));

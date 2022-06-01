@@ -9,7 +9,11 @@ export module TdPlanStatements {
 }
 
 const tdPlanStatements = {
-  selectAll: () => `SELECT * FROM td_plan`,
+  selectAll: () => `
+    SELECT * 
+    FROM td_plan 
+    ORDER BY sort
+  `,
 };
 
 export { tdPlanStatements };

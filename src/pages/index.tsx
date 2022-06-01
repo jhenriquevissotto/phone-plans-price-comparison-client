@@ -4,7 +4,6 @@ import { PhonePlansPriceComparatorScreen } from "~/src/view/screens/phone-plans-
 import { tdPlan, tdRegion, trPrice } from "~/src/redux/stores/database";
 import { useTranslation } from "~/src/react/hooks";
 import NextHead from "next/head";
-// import { routes } from "~/src/router";
 // import { Helmet } from "react-helmet"
 
 const locales = {
@@ -16,13 +15,6 @@ const locales = {
 
 export default function IndexPage() {
   const { lang } = useTranslation();
-  // const { router } = useRouter();
-
-  // const handlers = {
-  //   onClick() {
-  //     router.push(routes.phonePlansPriceComparator().url[lang]);
-  //   },
-  // };
 
   tdPlan.api.endpoints.selectAllTdPlan.useQuery();
   tdRegion.api.endpoints.selectAllTdRegion.useQuery();
@@ -35,7 +27,6 @@ export default function IndexPage() {
         <title>{locales.title[lang]}</title>
       </NextHead>
       <MainLayout>
-        {/* <button onClick={handlers.onClick}>GO TO COMPARISON PAGE</button> */}
         <PhonePlansPriceComparatorScreen />
       </MainLayout>
     </MyDocument>
