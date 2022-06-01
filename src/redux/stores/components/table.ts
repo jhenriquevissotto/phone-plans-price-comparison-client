@@ -69,7 +69,7 @@ export const table = (() => {
         rowID: createID(),
         from: 18,
         to: 11,
-        time: 11,
+        time: 200,
         plan_id: "talk-more-120",
         plan_slug_en: "talk-more-120",
         plan_slug_pt: "fale-mais-120",

@@ -6,11 +6,11 @@ import { toast } from "~/src/redux/stores/application";
 import { table } from "~/src/redux/stores/components";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { createID } from "~/src/libs/create-id";
 import { tableForm } from "~/src/redux/stores/forms";
 import { tdPlan, trPrice, tdRegion } from "~/src/redux/stores/database";
 import { useImmer } from "use-immer";
 import { useEffect, useMemo } from "react";
+import { createID } from "~/src/libs";
 
 module Types {
   export type Props = {
@@ -122,10 +122,6 @@ export function ComparisonTable(props: Types.Props) {
     tdPlan.selectors.getTdPlanRowBySlug(state.tableForm.from)
   );
 
-  // const withPlan = useMemo(() => {
-  //   return "";
-  // });
-
   const localeString = useMemo(() => {
     return {
       en: "en-US",
@@ -133,17 +129,51 @@ export function ComparisonTable(props: Types.Props) {
     }[lang];
   }, [lang]);
 
+  const withPlan = useMemo(() => {
+    const freeMinutes = Number(tdPlanRowById?.freeMinutes);
+    const premium = Number(tdPlanRowById?.premium);
+
+    const time = Number(fields.inputTime);
+    const feePerMin = Number(trPriceRowByFKs?.feePerMin);
+
+    const isOverFreeTime = time > freeMinutes;
+    const exceededFreeTime = isOverFreeTime ? time - freeMinutes : 0;
+
+    const planCallFee = exceededFreeTime * feePerMin * (1 + premium);
+
+    if (isNaN(planCallFee))
+      return {
+        value: null,
+        custom: null,
+      };
+
+    return {
+      value: planCallFee,
+      custom: `R$${planCallFee.toLocaleString(localeString, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`,
+    };
+  }, [tdPlanRowById, fields.inputTime, trPriceRowByFKs?.feePerMin]);
+
   const withoutPlan = useMemo(() => {
     const time = Number(fields.inputTime);
     const feePerMin = Number(trPriceRowByFKs?.feePerMin);
     const withoutPlan = time * feePerMin;
 
-    if (isNaN(withoutPlan)) return "";
+    if (isNaN(withoutPlan))
+      return {
+        value: null,
+        custom: null,
+      };
 
-    return `R$${withoutPlan.toLocaleString(localeString, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
+    return {
+      value: withoutPlan,
+      custom: `R$${withoutPlan.toLocaleString(localeString, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`,
+    };
   }, [fields.inputTime, trPriceRowByFKs?.feePerMin, localeString]);
 
   const handlers = {
@@ -153,10 +183,6 @@ export function ComparisonTable(props: Types.Props) {
           dispatch(table.actions.deleteRow({ rowID }));
         },
         insertRow() {
-          // alert("INSERT ROW");
-          // const { from, plan, to } = formCtrl.state.select;
-          // const { time } = formCtrl.state.input;
-
           if (
             !fields.inputTime ||
             !fields.selectFrom ||
@@ -167,23 +193,29 @@ export function ComparisonTable(props: Types.Props) {
             return;
           }
 
-          // dispatch(
-          //   table.actions.insertRow({
-          //     rowID: createID(),
-          //     from: Number(from),
-          //     to: Number(to),
-          //     time: Number(time),
-          //     plan_id: plan,
-          //     plan_slug_en: null,
-          //     plan_slug_pt: null,
-          //     plan_name_en: null,
-          //     plan_name_pt: null,
-          //     withPlan: null,
-          //     withoutPlan: null,
-          //   })
-          // );
+          dispatch(
+            table.actions.insertRow({
+              rowID: createID(),
+              from: Number(fields.selectFrom),
+              to: Number(fields.selectTo),
+              time: Number(fields.inputTime),
+              plan_id: fields.selectPlan,
+              plan_slug_en: tdPlanRowById.slug_en,
+              plan_slug_pt: tdPlanRowById.slug_pt,
+              plan_name_en: tdPlanRowById.name_en,
+              plan_name_pt: tdPlanRowById.name_pt,
+              withPlan: withPlan.value,
+              withoutPlan: withoutPlan.value,
+            })
+          );
 
-          // formCtrl.actions.resetFields();
+          // reset all form fields
+          let _asPath = `${router.asPath}`;
+          _asPath = setQuery.from(undefined, _asPath).asPath;
+          _asPath = setQuery.plan(undefined, _asPath).asPath;
+          _asPath = setQuery.time(undefined, _asPath).asPath;
+          _asPath = setQuery.to(undefined, _asPath).asPath;
+          router.push(_asPath);
         },
       },
     },
@@ -397,9 +429,11 @@ export function ComparisonTable(props: Types.Props) {
               ))}
             </select>
           </td>
-          <td style={S.col}></td>
           <td style={S.col}>
-            <p style={S.text}>{withoutPlan}</p>
+            <p style={S.text}>{withPlan.custom}</p>
+          </td>
+          <td style={S.col}>
+            <p style={S.text}>{withoutPlan.custom}</p>
           </td>
         </tr>
       </tbody>

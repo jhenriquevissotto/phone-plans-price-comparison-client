@@ -6,5 +6,4 @@ export type TdPlanModel = {
   name_pt: string;
   freeMinutes: number;
   premium: number;
-  subscriptionFee: number;
 };
