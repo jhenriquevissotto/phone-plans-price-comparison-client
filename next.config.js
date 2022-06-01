@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextTranslate = require("next-translate");
-const { routes } = require("./src/router/routes");
+// const { routes } = require("./src/router/routes");
 
 const nextConfig = nextTranslate({
   reactStrictMode: true,
@@ -11,8 +11,8 @@ const nextConfig = nextTranslate({
 
   rewrites: async () => [
     {
-      source: routes.phonePlansPriceComparator().url.br,
-      destination: routes.phonePlansPriceComparator().url.en,
+      source: "/comparador-de-precos-de-planos-de-telefonia",
+      destination: "/phone-plans-price-comparator",
     },
   ],
 });
