@@ -1,6 +1,6 @@
 import { NextRouter } from "next/router";
 import { AvailableLocales } from "~/src/locales/available-locales";
-import qs from "query-string";
+import { stringifyUrl } from "query-string";
 
 export module Queries {
   // export module Lists {
@@ -69,7 +69,7 @@ export const queries = {
         },
       }[lang];
 
-      const asPath = qs.stringifyUrl({ url: _asPath || routerAsPath, query });
+      const asPath = stringifyUrl({ url: _asPath || routerAsPath, query });
       return { asPath };
     };
 
@@ -85,7 +85,7 @@ export const queries = {
         },
       }[lang];
 
-      const asPath = qs.stringifyUrl({ url: _asPath || routerAsPath, query });
+      const asPath = stringifyUrl({ url: _asPath || routerAsPath, query });
       return { asPath };
     };
 
@@ -101,7 +101,7 @@ export const queries = {
         },
       }[lang];
 
-      const asPath = qs.stringifyUrl({ url: _asPath || routerAsPath, query });
+      const asPath = stringifyUrl({ url: _asPath || routerAsPath, query });
       return { asPath };
     };
 
@@ -117,7 +117,7 @@ export const queries = {
         },
       }[lang];
 
-      const asPath = qs.stringifyUrl({ url: _asPath || routerAsPath, query });
+      const asPath = stringifyUrl({ url: _asPath || routerAsPath, query });
       return { asPath };
     };
 

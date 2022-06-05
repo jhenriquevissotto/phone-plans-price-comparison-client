@@ -15,7 +15,7 @@ function MyApp({ Component: Page, pageProps }) {
   // const tdPlanRowById = useSelector(tdPlan.selectors.getTdPlanRowBySlug(queries.plan));
 
   useEffect(() => {
-    if ([routes.phonePlansPriceComparator().url.br].includes(asPath)) {
+    if ([routes.phonePlansPriceComparator.url.br].includes(asPath)) {
       setLanguage("br");
     }
   }, []);
